@@ -11,9 +11,13 @@ import java.net.http.HttpResponse;
 public class ConsultaCambio {
 
     private static final String URL_BASE = "https://v6.exchangerate-api.com/v6/";
-    private static final String API_KEY = "356923d717588510e95eab44";
+    private static final String API_KEY = System.getenv("API_KEY");
 
     public String buscarDados () {
+        if (API_KEY == null || API_KEY.isEmpty()) {
+            throw new RuntimeException("API_KEY não definida. Configure a variável de ambiente API_KEY.");
+        }
+
         String endereco = URL_BASE + API_KEY + "/latest/BRL";
 
         try {
